@@ -12,6 +12,7 @@ function App() {
                 backgroundColor: darkTheme ? "#282c35" : "white",
             }}
         >
+            {/* carousel tab */}
             <ShortTabs />
         </View>
     );
