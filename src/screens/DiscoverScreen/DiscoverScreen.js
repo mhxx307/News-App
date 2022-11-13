@@ -5,16 +5,17 @@ import {
     TouchableOpacity,
     Image,
     Dimensions,
-} from "react-native";
-import React, { useContext } from "react";
-import { categories, sources } from "../API/api";
-import { NewsContext } from "../API/Context";
-import Carousel from "react-native-snap-carousel";
-import Search from "../components/Search";
+} from 'react-native';
+import Carousel from 'react-native-snap-carousel';
+import { useContext } from 'react';
+
+import { categories, sources } from '~/store/api';
+import { NewsContext } from '~/store/context';
+import Search from '~/components/Search';
 
 export default function DiscoverScreen() {
     const { setCategory, setSource, darkTheme } = useContext(NewsContext);
-    const windowWidth = Dimensions.get("window").width;
+    const windowWidth = Dimensions.get('window').width;
     const SLIDER_WIDTH = Math.round(windowWidth / 3.5);
 
     return (
@@ -26,27 +27,24 @@ export default function DiscoverScreen() {
             <Text
                 style={{
                     ...styles.subtitle,
-                    color: darkTheme ? "white" : "black",
+                    color: darkTheme ? 'white' : 'black',
                 }}
             >
                 Categories
             </Text>
             <Carousel
-                layout={"default"}
+                layout={'default'}
                 data={categories}
                 renderItem={({ item, index }) => (
                     <TouchableOpacity
                         style={styles.category}
                         onPress={() => setCategory(item.name)}
                     >
-                        <Image
-                            source={{ uri: item.pic }}
-                            style={styles.categoryImage}
-                        />
+                        <Image source={item.pic} style={styles.categoryImage} />
                         <Text
                             style={{
                                 ...styles.name,
-                                color: darkTheme ? "white" : "black",
+                                color: darkTheme ? 'white' : 'black',
                             }}
                         >
                             {item.name}
@@ -55,7 +53,7 @@ export default function DiscoverScreen() {
                 )}
                 sliderWidth={windowWidth}
                 itemWidth={SLIDER_WIDTH}
-                activeSlideAlignment={"start"}
+                activeSlideAlignment={'start'}
                 inactiveSlideScale={1}
                 inactiveSlideOpacity={1}
             />
@@ -64,7 +62,7 @@ export default function DiscoverScreen() {
             <Text
                 style={{
                     ...styles.subtitle,
-                    color: darkTheme ? "white" : "black",
+                    color: darkTheme ? 'white' : 'black',
                 }}
             >
                 Source
@@ -76,10 +74,7 @@ export default function DiscoverScreen() {
                         key={s.id}
                         style={styles.sourceContainer}
                     >
-                        <Image
-                            source={{ uri: s.pic }}
-                            style={styles.sourceImage}
-                        />
+                        <Image source={s.pic} style={styles.sourceImage} />
                     </TouchableOpacity>
                 ))}
             </View>
@@ -90,49 +85,50 @@ export default function DiscoverScreen() {
 const styles = StyleSheet.create({
     discover: {
         padding: 10,
-        alignItems: "center",
+        alignItems: 'center',
     },
     subtitle: {
         fontSize: 20,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         paddingBottom: 8,
         marginHorizontal: 5,
-        borderBottomColor: "#007FFF",
+        borderBottomColor: '#007FFF',
         borderBottomWidth: 5,
-        alignSelf: "flex-start",
+        alignSelf: 'flex-start',
         borderRadius: 10,
     },
     categoryImage: {
-        height: "60%",
-        width: "100%",
-        resizeMode: "contain",
+        height: '60%',
+        width: '100%',
+        resizeMode: 'contain',
     },
     name: {
-        fontSize: 14,
-        textTransform: "capitalize",
+        fontSize: 13,
+        textTransform: 'capitalize',
     },
     category: {
         height: 130,
         margin: 10,
-        alignItems: "center",
-        justifyContent: "space-evenly",
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
     },
     sourceContainer: {
         height: 150,
-        width: "40%",
+        width: '40%',
         borderRadius: 10,
         margin: 15,
-        backgroundColor: "#cc313d",
+        backgroundColor: '#cc313d',
     },
     sourceImage: {
-        height: "100%",
+        height: '100%',
+        width: '100%',
         borderRadius: 10,
-        resizeMode: "cover",
+        resizeMode: 'cover',
     },
     sources: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-around",
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
         paddingVertical: 15,
     },
 });

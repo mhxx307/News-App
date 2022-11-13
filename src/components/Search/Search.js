@@ -1,15 +1,10 @@
-import {
-    View,
-    TextInput,
-    StyleSheet,
-    TouchableOpacity,
-    Text,
-    Modal,
-} from "react-native";
-import React, { useContext, useState } from "react";
-import { NewsContext } from "../API/Context";
-import { Entypo } from "@expo/vector-icons";
-import SingleNews from "./SingleNews";
+import { View, TextInput, TouchableOpacity, Text, Modal } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+import { useContext, useState } from 'react';
+
+import SingleNews from '~/components/SingleNews';
+import styles from './styles';
+import { NewsContext } from '~/store/context';
 
 const Search = () => {
     const {
@@ -27,7 +22,7 @@ const Search = () => {
             return;
         }
         setSearchResults(
-            articles.filter((query) => query.title.includes(text))
+            articles.filter((query) => query.title.includes(text)),
         );
     };
 
@@ -37,16 +32,16 @@ const Search = () => {
     };
 
     return (
-        <View style={{ position: "relative", width: "100%" }}>
+        <View style={{ position: 'relative', width: '100%' }}>
             <TextInput
                 style={{
                     ...styles.search,
-                    color: darkTheme ? "white" : "black",
-                    backgroundColor: darkTheme ? "black" : "lightgrey",
+                    color: darkTheme ? 'white' : 'black',
+                    backgroundColor: darkTheme ? 'black' : 'lightgrey',
                 }}
                 onChangeText={(text) => handleSearch(text)}
                 placeholder="Search for news"
-                placeholderTextColor={darkTheme ? "white" : "grey"}
+                placeholderTextColor={darkTheme ? 'white' : 'grey'}
             />
             <View style={styles.searchResults}>
                 {searchResults.slice(0, 10).map((n) => (
@@ -58,8 +53,8 @@ const Search = () => {
                         <Text
                             style={{
                                 ...styles.singleResult,
-                                color: darkTheme ? "white" : "black",
-                                backgroundColor: darkTheme ? "black" : "white",
+                                color: darkTheme ? 'white' : 'black',
+                                backgroundColor: darkTheme ? 'black' : 'white',
                             }}
                         >
                             {n.title}
@@ -78,7 +73,7 @@ const Search = () => {
                 <TouchableOpacity
                     onPress={() => setModalVisible(!modalVisible)}
                     style={{
-                        position: "absolute",
+                        position: 'absolute',
                         zIndex: 2,
                         right: 0,
                         margin: 10,
@@ -87,7 +82,7 @@ const Search = () => {
                 >
                     <Entypo name="circle-with-cross" size={30} color="white" />
                 </TouchableOpacity>
-                <View style={{ heigh: "100%", transform: [{ scaleY: -1 }] }}>
+                <View style={{ heigh: '100%', transform: [{ scaleY: -1 }] }}>
                     <SingleNews item={currentNews} />
                 </View>
             </Modal>
@@ -96,25 +91,3 @@ const Search = () => {
 };
 
 export default Search;
-
-const styles = StyleSheet.create({
-    search: {
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 10,
-        fontSize: 15,
-        marginBottom: 15,
-    },
-    searchResults: {
-        position: "absolute",
-        zIndex: 1,
-        top: 50,
-    },
-    singleResult: {
-        borderRadius: 5,
-        padding: 10,
-        margin: 0.5,
-        shadowColor: "black",
-        elevation: 5,
-    },
-});
